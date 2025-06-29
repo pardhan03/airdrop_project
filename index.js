@@ -12,4 +12,20 @@ const wallet = new Keypair();
 const publicKey = new  PublicKey(wallet._keypair.publicKey);
 const secretKey = wallet._keypair.secretKey;
 
-console.log(publicKey, secretKey, 'Keypair');
+// console.log(publicKey, secretKey, 'Keypair');
+
+const getWalletBalance = async () =>{
+    try {
+        const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+        const walletBalance = await connection.getBalance(publicKey);
+        console.log(`Wallet Balance is ${walletBalance}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const main = async () =>{
+    getWalletBalance();
+}
+
+main();
